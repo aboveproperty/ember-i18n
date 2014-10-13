@@ -138,7 +138,7 @@ yields
 
 #### Translate attributes on a plain tag:
 ```html
-<a {{translateAttr title="button.add_user.title" data-disable-with="button.add_user.disabled"}}>
+<a {{i18n-attr title="button.add_user.title" data-disable-with="button.add_user.disabled"}}>
   {{t "button.add_user.text"}}
 </a>
 ```
