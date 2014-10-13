@@ -8,10 +8,10 @@
     "internationalization",
     "i18n"
   ],
-  "author": "James A. Rosen <james.a.rosen@gmail.com>",
+  "author": "Erik Reedstrom",
   "repository": {
     "type": "git",
-    "url": "git://github.com/jamesarosen/ember-i18n.git"
+    "url": "git://github.com/aboveproperty/ember-i18n.git"
   },
   "main": "lib/i18n.js",
   "scripts": {

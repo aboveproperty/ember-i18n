@@ -1,8 +1,9 @@
 {
   "name": "ember-i18n",
-  "version": "2.2.1",
   "description": "I18n support for Ember.js",
-  "main": [ "lib/i18n.js" ],
+  "main": [
+    "lib/i18n.js"
+  ],
   "dependencies": {
     "cldr": "^1.0",
     "jquery": ">=1.7 <3",
@@ -30,5 +31,15 @@
     "spec",
     "vendor",
     "Makefile"
-  ]
+  ],
+  "homepage": "https://github.com/aboveproperty/ember-i18n",
+  "_release": "fb5cecf279",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "fb5cecf279916bf9dc7412a35b210236c8b2a0ee"
+  },
+  "_source": "https://github.com/aboveproperty/ember-i18n.git",
+  "_target": "master",
+  "_originalSource": "https://github.com/aboveproperty/ember-i18n.git"
 }
