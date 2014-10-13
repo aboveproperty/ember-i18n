@@ -2,6 +2,12 @@
 
 Internationalization for Ember
 
+### Differences in this Version
+
+This fork allows for runtime switching of the `translations` property to facilitate observations on keys of the same.
+That is, if one updates `Ember.I18n.translations` at runtime, all `{{t}}`, `{{ta}}`, and `{{i18n-attr}}` helpers will
+update their respective values with regard to the key paths.
+
 ### Requirements
 
 Set `Ember.I18n.translations` to an object containing your translation
@@ -182,10 +188,7 @@ This format is often smaller and so makes downloading translation packs faster.
  * There is no way to pass interpolations to attribute translations. I can't
    think of a syntax to support this. It *might* be possible to look up
    interpolations from the current context.
- * `Em.I18n.translations` **must** be fully populated before Ember
-   renders any views. There are no bindings on the translations themselves,
-   so Ember will not know to re-render views when translations change.
 
 ### Building
 
-For more detail on running tests and contributing, see [CONTRIBUTING.md](https://github.com/jamesarosen/ember-i18n/blob/master/CONTRIBUTING.md).
+For more detail on running tests and contributing, see [CONTRIBUTING.md](https://github.com/aboveproperty/ember-i18n/blob/master/CONTRIBUTING.md).
