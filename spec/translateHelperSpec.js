@@ -115,3 +115,5 @@ describe('{{{t}}}', function() {
     });
   });
 });
+
+// TODO Add tests for translations change

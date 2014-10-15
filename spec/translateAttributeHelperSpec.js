@@ -27,3 +27,5 @@ describe('{{ta}} == {{i18n-attr}}', function() {
     });
   });
 });
+
+// TODO Add tests for translations change

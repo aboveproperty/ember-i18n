@@ -20,10 +20,10 @@
 
   beforeEach(function() {
     this.renderTemplate = renderTemplate.bind(this);
-    this.originalTranslations = Ember.I18n.translations;
+    this.originalTranslations = Ember.I18n.get('translations');
     this.originalMissingMessage = Ember.I18n.missingMessage;
 
-    Ember.I18n.translations = {
+    Ember.I18n.set('translations', {
       'foo.bar': 'A Foobar',
       'foo.bar.named': 'A Foobar named {{name}}',
       'foo.save.disabled': 'Saving Foo...',
@@ -38,7 +38,7 @@
         one: 'A fum',
         other: '{{count}} fums'
       }
-    };
+    });
 
     CLDR.defaultLanguage = 'ksh';
   });
@@ -49,7 +49,7 @@
       delete this._ember_view;
     }
 
-    Ember.I18n.translations = this.originalTranslations;
+    Ember.I18n.set('translations', this.originalTranslations);
     Ember.I18n.missingMessage = this.originalMissingMessage;
     CLDR.defaultLanguage = null;
   });

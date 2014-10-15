@@ -74,7 +74,7 @@ describe('Ember.I18n.t', function() {
   });
 
   it('prefers dotted keys to nested ones', function() {
-    Ember.I18n.translations.foo = { bar: 'Nested foo.bar' };
+    Ember.I18n.set('translations.foo', { bar: 'Nested foo.bar' });
     expect(Ember.I18n.t('foo.bar')).to.equal('A Foobar');
   });
 });

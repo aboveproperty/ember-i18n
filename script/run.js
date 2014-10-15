@@ -2,11 +2,12 @@
 
 var buildSuite = require('./buildSuite'),
     exec = require('child_process').exec,
-    phantomJSBin = './node_modules/mocha-phantomjs/bin/mocha-phantomjs';
+    phantomJSBin = './node_modules/mocha-phantomjs/bin/mocha-phantomjs',
+    phantomJSPath = './node_modules/phantomjs/lib/phantom/bin/phantomjs';
 
 function runSpecs() {
   var suitePath = buildSuite();
-  exec(phantomJSBin + ' ' + suitePath, function (error, stdout, stderr) {
+  exec(phantomJSBin + ' -p ' + phantomJSPath + ' ' + suitePath, function (error, stdout, stderr) {
     logIfAnything(stdout);
     logIfAnything(stderr);
     if (error !== null) {
