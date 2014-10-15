@@ -71,6 +71,23 @@ yields
 </h2>
 ```
 
+#### "Lazy" lookup:
+
+Ember I18n implements a convenient way to look up the locale inside views. When you have the following dictionary:
+
+```javascript
+fr:
+  posts:
+    index:
+      title: "Titre"
+```
+
+you can look up the `posts.index.title` value inside `app/templates/posts/index.hbs` template like this (note the dot):
+
+```handlebars
+{{t '.title'}}
+```
+
 #### Emit directly into the h2:
 ```html
 {{t "user.edit.title" tagName="h2"}}
