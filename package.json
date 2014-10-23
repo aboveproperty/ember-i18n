@@ -1,6 +1,6 @@
 {
   "name": "ember-i18n",
-  "version": "2.2.2",
+  "version": "2.9.0",
   "licence": "APLv2",
   "description": "Internationalization for Ember",
   "keywords": [
@@ -23,7 +23,6 @@
     "jshint": "~2.0.1",
     "mocha": "~1.9.0",
     "mocha-phantomjs": "~2.0.1",
-    "phantomjs": "^1.9.10",
     "sinon": "1.10.3"
   }
 }

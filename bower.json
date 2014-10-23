@@ -1,10 +1,9 @@
 {
   "name": "ember-i18n",
-  "version": "2.2.2",
+  "version": "2.9.0",
   "description": "I18n support for Ember.js",
   "main": [ "lib/i18n.js" ],
   "dependencies": {
-    "cldr": "^1.0",
     "jquery": ">=1.7 <3",
     "handlebars": "^1.0",
     "ember": "^1.0"

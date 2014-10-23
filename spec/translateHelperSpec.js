@@ -1,10 +1,5 @@
 describe('{{t}}', function() {
 
-  beforeEach(function() {
-    // compatibility mode:
-    Ember.FEATURES.I18N_TRANSLATE_HELPER_SPAN = true;
-  });
-
   it('outputs simple translated strings', function() {
     var view = this.renderTemplate('{{t "foo.bar"}}');
 
@@ -13,20 +8,21 @@ describe('{{t}}', function() {
     });
   });
 
-  it('emits a warning on unquoted keys', function() {
-    var spy = sinon.spy(Ember.Logger, 'warn');
-
-    var view = this.renderTemplate('{{t foo.bar}}');
+  it('supports bound keys', function() {
+    var view = this.renderTemplate('{{t view.key}}', { key: 'foo.bar' });
 
     Ember.run(function() {
-      expect(spy.callCount).to.equal(1);
-      expect(spy.lastCall.args[0]).to.match(/unquoted/);
-      expect(spy.lastCall.args[0]).to.match(/foo\.bar/);
       expect(view.$().text()).to.equal('A Foobar');
+    });
+
+    Ember.run(view, 'set', 'key', 'foo.save.disabled');
+
+    Ember.run(function() {
+      expect(view.$().text()).to.equal('Saving Foo...');
     });
   });
 
-  it('interpolates values', function() {
+  it('interpolates literal values', function() {
     var view = this.renderTemplate('{{t "bars.all" count="597"}}');
 
     Ember.run(function() {
@@ -34,23 +30,17 @@ describe('{{t}}', function() {
     });
   });
 
-  it('interpolates bindings', function() {
-    var view = this.renderTemplate('{{t "bars.all" countBinding="view.count"}}', { count: 3 });
+  it('interpolates bound values', function() {
+    var view = this.renderTemplate('{{t "foos" countBinding="view.count"}}', { count: 1 });
 
     Ember.run(function() {
-      expect(view.$().text()).to.equal('All 3 Bars');
-    });
-  });
-
-  it('responds to updates on bound properties', function() {
-    var view = this.renderTemplate('{{t "bars.all" countBinding="view.count"}}', { count: 3 });
-
-    Ember.run(function() {
-      view.set('count', 4);
+      expect(view.$().text()).to.equal('One Foo');
     });
 
+    Ember.run(view, 'set', 'count', 4);
+
     Ember.run(function() {
-      expect(view.$().text()).to.equal('All 4 Bars');
+      expect(view.$().text()).to.equal('All 4 Foos');
     });
   });
 
@@ -78,29 +68,20 @@ describe('{{t}}', function() {
     });
   });
 
-  it('handles interpolations from contextual keywords', function() {
-    var view = this.renderTemplate('{{t "foo.bar.named" nameBinding="view.favouriteBeer" }}', {
-      favouriteBeer: 'IPA'
-    });
+  it('it uses the views rendered name for lazy lookups when the translation key starts with a dot', function() {
+    var view = this.renderTemplate('{{t ".bar" }}', { renderedName: 'foo' });
 
     Ember.run(function() {
-      expect(view.$().text()).to.equal('A Foobar named IPA');
+      expect(view.$().text()).to.equal('A Foobar');
     });
   });
 
-  it('responds to updates on bound keyword properties', function() {
-    var view = this.renderTemplate('{{t "foo.bar.named" nameBinding="view.favouriteBeer"}}', {
-      favouriteBeer: 'Lager'
-    });
-
-    expect(view.$().text()).to.equal('A Foobar named Lager');
+  it('loops up through the parent views untill a rendered name is found for lazy lookups', function() {
+    var parentView = Ember.View.create({ renderedName: 'foo' });
+    var view = this.renderTemplate('{{t ".bar" }}', { _parentView: parentView });
 
     Ember.run(function() {
-      view.set('favouriteBeer', 'IPA');
-    });
-
-    Ember.run(function() {
-      expect(view.$().text()).to.equal('A Foobar named IPA');
+      expect(view.$().text()).to.equal('A Foobar');
     });
   });
 });
