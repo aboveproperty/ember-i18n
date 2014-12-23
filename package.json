@@ -1,6 +1,6 @@
 {
   "name": "ember-i18n",
-  "version": "2.9.0",
+  "version": "3.0.0-beta.2",
   "licence": "APLv2",
   "description": "Internationalization for Ember",
   "keywords": [
@@ -8,7 +8,7 @@
     "internationalization",
     "i18n"
   ],
-  "author": "Erik Reedstrom",
+  "author": "James A. Rosen <james.a.rosen@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git://github.com/aboveproperty/ember-i18n.git"
@@ -18,11 +18,11 @@
     "test": "make test"
   },
   "devDependencies": {
-    "chai": "~1.6.0",
-    "handlebars": "~1.0.11",
-    "jshint": "~2.0.1",
     "mocha": "~1.9.0",
+    "chai": "~1.6.0",
+    "sinon": "1.10.3",
     "mocha-phantomjs": "~2.0.1",
-    "sinon": "1.10.3"
+    "jshint": "~2.0.1",
+    "handlebars": "~1.0.11"
   }
 }

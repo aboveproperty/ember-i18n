@@ -67,23 +67,6 @@ describe('{{t}}', function() {
       expect(view.$().text()).to.equal('All 4 Bars');
     });
   });
-
-  it('it uses the views rendered name for lazy lookups when the translation key starts with a dot', function() {
-    var view = this.renderTemplate('{{t ".bar" }}', { renderedName: 'foo' });
-
-    Ember.run(function() {
-      expect(view.$().text()).to.equal('A Foobar');
-    });
-  });
-
-  it('loops up through the parent views untill a rendered name is found for lazy lookups', function() {
-    var parentView = Ember.View.create({ renderedName: 'foo' });
-    var view = this.renderTemplate('{{t ".bar" }}', { _parentView: parentView });
-
-    Ember.run(function() {
-      expect(view.$().text()).to.equal('A Foobar');
-    });
-  });
 });
 
 describe('{{{t}}}', function() {
@@ -96,5 +79,3 @@ describe('{{{t}}}', function() {
     });
   });
 });
-
-// TODO Add tests for translations change

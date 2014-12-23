@@ -2,12 +2,6 @@
 
 Internationalization for Ember
 
-### Differences in this Version
-
-This fork allows for runtime switching of the `translations` property to facilitate observations on keys of the same.
-That is, if one updates `Ember.I18n.translations` at runtime, all `{{t}}`, `{{ta}}`, and `{{i18n-attr}}` helpers will
-update their respective values with regard to the key paths.
-
 ### Requirements
 
 Ember-I18n requires
@@ -23,11 +17,6 @@ compiled via `Ember.I18n.compile`, which defaults to using
 `Handlebars.compile`. (That means that if you haven't precompiled your
 translations, you'll need to include the full Handlebars, not just
 `handlebars-runtime.js` in your application.)
-
-If you want to support inflection based on `count`, you will
-also need to include Ember-I18n's pluralization support (`lib/i18n-plurals.js`)
-*after* the Ember-I18n core (`lib/i18n.js`) itself and set `Ember.I18n.locale`
-to the current locale code (e.g. "de").
 
 ### Examples
 
@@ -56,21 +45,27 @@ yields
 </h2>
 ```
 
-#### "Lazy" lookup:
-
-Ember I18n implements a convenient way to look up the locale inside views. When you have the following dictionary:
-
-```javascript
-fr:
-  posts:
-    index:
-      title: "Titre"
+#### A translation based on a bound key:
+```html
+<h2>{{t title_i18n_key}}</h2>
 ```
-
-you can look up the `posts.index.title` value inside `app/templates/posts/index.hbs` template like this (note the dot):
-
-```handlebars
-{{t '.title'}}
+yields
+```html
+<h2>
+  <script id="metamorph-28-start"></script>
+  Add a user
+  <script id="metamorph-28-end"></script>
+</h2>
+```
+if `controller.title_i18n_key` is `'button.add_user.title'`. If
+it subsequently changes to `'user.edit.title'`, the HTML will
+become
+```html
+<h2>
+  <script id="metamorph-28-start"></script>
+  Edit User
+  <script id="metamorph-28-end"></script>
+</h2>
 ```
 
 #### Set interpolated values directly:
@@ -135,7 +130,7 @@ yields
 
 #### Translate attributes on a plain tag:
 ```html
-<a {{i18n-attr title="button.add_user.title" data-disable-with="button.add_user.disabled"}}>
+<a {{translateAttr title="button.add_user.title" data-disable-with="button.add_user.disabled"}}>
   {{t "button.add_user.text"}}
 </a>
 ```
@@ -174,12 +169,52 @@ Em.I18n.translations = {
 ```
 This format is often smaller and so makes downloading translation packs faster.
 
+### Pluralization
+
+If you want to support inflection based on `count`, you will
+also need to include Ember-I18n's pluralization support (`lib/i18n-plurals.js`)
+*after* the Ember-I18n core (`lib/i18n.js`) itself and set `Ember.I18n.locale`
+to the current locale code (e.g. "de").
+
+```javascript
+Em.I18n.locale = 'en';
+```
+
+Now whenever you pass the `count` option to the `t` function, template will be pluralized:
+
+```javascript
+Em.I18n.locale = 'en';
+
+Em.I18n.translations = {
+  'dog': {
+    'one': 'a dog',
+    'other': '{{count}} dogs'
+  }
+};
+
+Em.I18n.t('dog', { count: 1 }); // a dog
+Em.I18n.t('dog', { count: 2 }); // 2 dogs
+```
+
+The suffixes 'one' and 'other' are appended automatically.
+
+Example using pluralization in the template:
+
+```html
+{{t 'dog' count=dogs.length}} // Assuming dogs property is an array
+```
+
+Depending on the locale there could be up to 6 plural forms used, namely: 'zero', 'one', 'two', 'few', 'many', 'other'.
+
 ### Limitations
 
  * There is no way to pass interpolations to attribute translations. I can't
    think of a syntax to support this. It *might* be possible to look up
    interpolations from the current context.
+ * `Em.I18n.translations` **must** be fully populated before Ember
+   renders any views. There are no bindings on the translations themselves,
+   so Ember will not know to re-render views when translations change.
 
 ### Building
 
-For more detail on running tests and contributing, see [CONTRIBUTING.md](https://github.com/aboveproperty/ember-i18n/blob/master/CONTRIBUTING.md).
+For more detail on running tests and contributing, see [CONTRIBUTING.md](https://github.com/jamesarosen/ember-i18n/blob/master/CONTRIBUTING.md).

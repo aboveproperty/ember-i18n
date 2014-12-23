@@ -9,6 +9,12 @@ describe('Ember.I18n.t', function() {
     })).to.equal('A Foobar named Sue');
   });
 
+  it('interpolates structures correctly', function() {
+    expect(Ember.I18n.t('foo.bar.structured.named', {
+      contact: { name: 'Sue' }
+    })).to.equal('A Foobar named Sue');
+  });
+
   it('uses the "zero" form when the language calls for it', function() {
     expect(Ember.I18n.t('foos', {
       count: 0
@@ -74,7 +80,7 @@ describe('Ember.I18n.t', function() {
   });
 
   it('prefers dotted keys to nested ones', function() {
-    Ember.I18n.set('translations.foo', { bar: 'Nested foo.bar' });
+    Ember.I18n.translations.foo = { bar: 'Nested foo.bar' };
     expect(Ember.I18n.t('foo.bar')).to.equal('A Foobar');
   });
 });

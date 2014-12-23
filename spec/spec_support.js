@@ -20,12 +20,13 @@
 
   beforeEach(function() {
     this.renderTemplate = renderTemplate.bind(this);
-    this.originalTranslations = Ember.I18n.get('translations');
+    this.originalTranslations = Ember.I18n.translations;
     this.originalMissingMessage = Ember.I18n.missingMessage;
 
-    Ember.I18n.set('translations', {
+    Ember.I18n.translations = {
       'foo.bar': 'A Foobar',
       'foo.bar.named': 'A Foobar named {{name}}',
+      'foo.bar.structured.named': 'A Foobar named {{contact.name}}',
       'foo.save.disabled': 'Saving Foo...',
       'foos.zero': 'No Foos',
       'foos.one': 'One Foo',
@@ -38,7 +39,7 @@
         one: 'A fum',
         other: '{{count}} fums'
       }
-    });
+    };
 
     Ember.I18n.locale = 'ksh';
   });
@@ -49,7 +50,7 @@
       delete this._ember_view;
     }
 
-    Ember.I18n.set('translations', this.originalTranslations);
+    Ember.I18n.translations = this.originalTranslations;
     Ember.I18n.missingMessage = this.originalMissingMessage;
     Ember.I18n.locale = null;
   });
