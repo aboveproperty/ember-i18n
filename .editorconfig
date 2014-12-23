@@ -1,9 +1,9 @@
-# EditorConfig is awesome: http://EditorConfig.org
-
-# top-most EditorConfig file
 root = true
 
-# Indentation override for all JS
+[*]
+end_of_line = lf
+insert_final_newline = true
+
 [*.js]
 indent_style = space
 indent_size = 2
